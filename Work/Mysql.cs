@@ -29,6 +29,7 @@ namespace Work
             cmd.CommandText = sql;
             adap = new MySqlDataAdapter(cmd);
             adap.Fill(ds);
+            cnt.Close();
             return ds;
             //mscd = new MySqlCommand(sql, msc);
             //MySqlDataReader reader = mscd.ExecuteReader();

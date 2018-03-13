@@ -10,38 +10,104 @@
         WindowStartupLocation="CenterScreen">
     <Grid Loaded="Grid_Loaded">
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="登录" Click="btnLogin_Click">
-
+            <Menu DockPanel.Dock="Top" Height="30">
+                <MenuItem Header="登录"  Click="btnLogin_Click" Height="30" FontSize="15">
+                </MenuItem>
+                <MenuItem Header="管理商品" Height="30" FontSize="15">
+                    <MenuItem x:Name="muAdd" Header="添加商品" Click="muAdd_Click">
+                        <MenuItem.Icon>
+                            <Image Source="hello.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="muDel" Header="删除商品" Click="muDel_Click"/>
+                    <MenuItem x:Name="muCha" Header="修改商品" Click="muCha_Click"/>
+                </MenuItem>
+                <MenuItem Header="刷新"  Click="btnLogin_Click" Margin="820 0 0 0" Height="30" FontSize="15">
                 </MenuItem>
             </Menu>
-                <ToolBar DockPanel.Dock="Top" Height="30">
+            <!--<ToolBar DockPanel.Dock="Top" Height="30">
                 <Button Content="k" Margin="0 0 0 0"></Button>
                 <Button Content="laalla" Margin="90 0 0 0"></Button>
-            </ToolBar>
+            </ToolBar>-->
             <Grid>
-            <Grid.RowDefinitions>
+                <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <DataGrid Name="dgTable" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="4" CellEditEnding="mycehis" BeginningEdit="dgTable_BeginningEdit">
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn Width="30"/>
-                <DataGridTextColumn Width="80" Binding="{Binding rwmc}" Header="rwmc" IsReadOnly="False"></DataGridTextColumn>
-                <DataGridTextColumn Width="80" Binding="{Binding tpdj}" Header="tpdj" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Width="90" Binding="{Binding scmc}" Header="scmc" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Width="40" Binding="{Binding xysl}" Header="xysl" IsReadOnly="True"></DataGridTextColumn>
+                </Grid.ColumnDefinitions>
+                <DataGrid Name="dgTable" 
+                          Grid.Column="1" 
+                          Grid.ColumnSpan="5" 
+                          CanUserAddRows="False" 
+                          Grid.RowSpan="4" 
+                          CellEditEnding="mycehis" 
+                          RowDetailsVisibilityMode="VisibleWhenSelected" 
+                          SelectionMode="Single" 
+                          SelectionUnit="Cell" 
+                          SelectedCellsChanged="dgTable_SelectedCellsChanged" 
+                          AutoGenerateColumns="False" 
+                          AlternatingRowBackground="LightGray" 
+                          RowHeaderWidth="30"
+                          AlternationCount="2">
+                    <DataGrid.RowHeaderStyle>
+                        <Style TargetType="DataGridRowHeader">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="SkyBlue"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="Width" Value="15"/>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop  Offset="0"/>
+                                        <GradientStop Color="SkyBlue" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.RowHeaderStyle>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--当鼠标经过时 改变颜色-->
+                                    <Setter Property="Background" Value="SkyBlue"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <!--<DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="LightBlue" Offset="0.5"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontSize" Value="13" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>-->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="80" Binding="{Binding rwmc,UpdateSourceTrigger=PropertyChanged}" Header="rwmc" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="80" Binding="{Binding tpdj,UpdateSourceTrigger=PropertyChanged}" Header="tpdj" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="90" Binding="{Binding scmc}" Header="scmc" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="40" Binding="{Binding xysl}" Header="xysl" IsReadOnly="True"></DataGridTextColumn>
             </DataGrid.Columns>
             <!--<DataGrid.ItemsSource>
                 
