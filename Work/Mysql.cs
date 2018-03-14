@@ -12,9 +12,9 @@ namespace Work
     class Mysql
     {
         
-        private MySqlConnection cnt = null;                  //connection
-        private MySqlCommand cmd = null;                 //command
-        private MySqlDataAdapter adap = null;           //adaption
+        private MySqlConnection cnt = null;                  //与MySql数据库的连接
+        private MySqlCommand cmd = null;                 //要执行的SQL命令
+        private MySqlDataAdapter adap = null;           //数据库适配器，用于同步本地数据（DataSet）与数据库数据，包含要执行的SQL命令（MySqlCommand）
 
         public Mysql(string db, string user, string pwd, string host)
         {
