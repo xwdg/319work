@@ -11,9 +11,10 @@ namespace Work
 {
     class Mysql
     {
-        private MySqlConnection cnt = null;
-        private MySqlCommand cmd = null;
-        private MySqlDataAdapter adap = null;
+        
+        private MySqlConnection cnt = null;                  //connection
+        private MySqlCommand cmd = null;                 //command
+        private MySqlDataAdapter adap = null;           //adaption
 
         public Mysql(string db, string user, string pwd, string host)
         {
@@ -21,6 +22,7 @@ namespace Work
             cnt = new MySqlConnection(s);
         }
 
+        //SQL查询
         public DataSet CX(string sql)
         {
             DataSet ds = new DataSet();

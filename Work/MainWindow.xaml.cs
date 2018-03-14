@@ -19,7 +19,7 @@ namespace Work
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-
+    /***
     struct lala
     {
         public string s { set; get; }
@@ -31,6 +31,7 @@ namespace Work
             t = tt;
         }
     }
+    ***/
 
     public partial class MainWindow : Window
     {
@@ -45,6 +46,7 @@ namespace Work
             InitializeComponent();
         }
 
+        //初始化或刷新DataGrid数据
         public void dgTable_Lod()
         {
             try
@@ -61,6 +63,7 @@ namespace Work
             }
         }
 
+        //初始化DataGrid
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             dgTable_Lod();
@@ -86,11 +89,13 @@ namespace Work
             //MessageBox.Show($"{da.Tables[0].Rows[0][0]}");
         }
 
+        //初始化DataGrid行序号
         private void dgTable_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = e.Row.GetIndex() + 1;
         }
 
+        //登录按钮点击事件
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow lw = new LoginWindow();
@@ -101,6 +106,7 @@ namespace Work
             //if(b==true)
         }
         
+        //数据格失去焦点后同步数据
         private void mycehis(object sender, DataGridCellEditEndingEventArgs e)
         {
             //foreach(var a in dgTable.)
@@ -115,6 +121,7 @@ namespace Work
             MessageBox.Show(dgTable.CurrentColumn.ToString());
         }
 
+        //ToDo：保存要编辑单元格原始内容
         private void dgTable_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             var a = dgTable.SelectedItem;
@@ -124,6 +131,7 @@ namespace Work
             //for(int i=0;i<b.Row.Table.Columns.Count)
         }
 
+        //。。。
         private void dgTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             if (e.AddedCells.Count == 0)
@@ -138,6 +146,7 @@ namespace Work
             //}
         }
 
+        //“管理商品--添加商品”菜单项点击事件
         private void muAdd_Click(object sender, RoutedEventArgs e)
         {
             //if (isLogined == false)
@@ -147,12 +156,14 @@ namespace Work
             dgTable.BeginEdit();
         }
 
+        //“管理商品--删除商品”菜单项点击事件
         private void muDel_Click(object sender, RoutedEventArgs e)
         {
             //if (isLogined == false)
                 //MessageBox.Show("cnm");
         }
 
+        //“管理商品--修改商品”菜单项点击事件
         private void muCha_Click(object sender, RoutedEventArgs e)
         {
             foreach (DataGridColumn temp in dgTable.Columns)
