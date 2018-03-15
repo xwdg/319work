@@ -144,7 +144,7 @@ namespace Work
             //if (currentCell.Column == dgTable.Columns[0]|| currentCell.Column == dgTable.Columns[1])   //Columns[]从0开始  我这的ComboBox在第四列  所以为3  
             //{
             //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
-            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了  
+            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了
 
             //}
         }
@@ -209,6 +209,8 @@ namespace Work
             //e.Row[0][0];
             //cell.Focus();
         }
+
+        //刷新
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             dgTable.CanUserAddRows = true;
@@ -222,6 +224,8 @@ namespace Work
             dgTable.BeginEdit();
            
         }
+
+        //。。。
         public static T GetVisualChild<T>(Visual parent) where T : Visual
         {
             T child = default(T);
@@ -242,11 +246,7 @@ namespace Work
             return child;
         }
 
-        private void CheckAll_Click(object sender, RoutedEventArgs e)
-        {
-           //if(check_)
-        }
-
+        //删除一行记录
         private void btnDltSelect_Click(object sender, RoutedEventArgs e)
         {
             if (dgTable.SelectedItems.Count == 0)
@@ -273,7 +273,7 @@ namespace Work
                 }
             }
         }
-
+        //修改商品时的代码
         private void btnAltSelect_Click(object sender, RoutedEventArgs e)
         {
 
