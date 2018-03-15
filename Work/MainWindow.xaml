@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Work"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="1000"
+        Title="MainWindow" Height="400" Width="600"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
     <Grid Loaded="Grid_Loaded">
@@ -22,7 +22,7 @@
                     <MenuItem x:Name="muDel" Header="删除商品" Click="muDel_Click"/>
                     <MenuItem x:Name="muCha" Header="修改商品" Click="muCha_Click"/>
                 </MenuItem>
-                <MenuItem Header="刷新"  Click="btnLogin_Click" Margin="820 0 0 0" Height="30" FontSize="15">
+                <MenuItem Header="刷新"  Click="Button_Click" Margin="420 0 0 0" Height="30" FontSize="15">
                 </MenuItem>
             </Menu>
             <!--<ToolBar DockPanel.Dock="Top" Height="30">
@@ -46,20 +46,17 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid Name="dgTable" 
-                          Grid.Column="1" 
-                          Grid.ColumnSpan="5" 
+                          Grid.Column="0" 
+                          Grid.ColumnSpan="6" 
                           CanUserAddRows="False" 
                           Grid.RowSpan="4" 
-                          CellEditEnding="mycehis" 
                           RowDetailsVisibilityMode="VisibleWhenSelected" 
                           SelectionMode="Single" 
-                          SelectionUnit="Cell" 
-                          SelectedCellsChanged="dgTable_SelectedCellsChanged" 
-                          AutoGenerateColumns="False" 
+                          AutoGenerateColumns="False"
                           AlternatingRowBackground="LightGray" 
                           RowHeaderWidth="30"
                           AlternationCount="2">
-                    <DataGrid.RowHeaderStyle>
+                    <!--<DataGrid.RowHeaderStyle>
                         <Style TargetType="DataGridRowHeader">
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -76,7 +73,7 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </DataGrid.RowHeaderStyle>
+                    </DataGrid.RowHeaderStyle>-->
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow" >
                             <Style.Triggers>
@@ -104,15 +101,14 @@
                         </Style>
                     </DataGrid.ColumnHeaderStyle>-->
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="80" Binding="{Binding rwmc,UpdateSourceTrigger=PropertyChanged}" Header="rwmc" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="80" Binding="{Binding tpdj,UpdateSourceTrigger=PropertyChanged}" Header="tpdj" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="90" Binding="{Binding scmc}" Header="scmc" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="40" Binding="{Binding xysl}" Header="xysl" IsReadOnly="True"></DataGridTextColumn>
-            </DataGrid.Columns>
-            <!--<DataGrid.ItemsSource>
-                
-            </DataGrid.ItemsSource>-->
-        </DataGrid>
+                        <DataGridTextColumn Width="80" Binding="{Binding id,UpdateSourceTrigger=PropertyChanged}" Header="商品编号" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="80" Binding="{Binding height,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="90" Binding="{Binding weight,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="80" Binding="{Binding cm,UpdateSourceTrigger=PropertyChanged}" Header="商品库存" IsReadOnly="True"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Name="btnDltSelect" Click="btnDltSelect_Click" Margin="60 10 20 10" Background="LightSkyBlue" Foreground="Red" Content="删除选中商品" Grid.Row="5" Grid.ColumnSpan="2"></Button>
+                <Button Name="btnAltSelect" Click="btnAltSelect_Click" Margin="20 10 60 10" Background="LightSkyBlue" Foreground="Red" Content="修改选中商品" Grid.Row="5" Grid.Column="4"  Grid.ColumnSpan="2"></Button>
         </Grid>
         </DockPanel>
     </Grid>

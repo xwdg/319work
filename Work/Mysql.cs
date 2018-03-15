@@ -11,37 +11,59 @@ namespace Work
 {
     class Mysql
     {
-        private MySqlConnection cnt = null;
+        public MySqlConnection cnt = null;
         private MySqlCommand cmd = null;
         private MySqlDataAdapter adap = null;
+        private MySqlTransaction tran = null;
 
         public Mysql(string db, string user, string pwd, string host)
         {
-            string s = $"Host={host};Database={db};Username={user };Password={pwd}";
+            string s = $"Host={host};Database={db};Username={user};Password={pwd}";
             cnt = new MySqlConnection(s);
         }
 
-        public DataSet CX(string sql)
+        public DataSet Select(string sql)
         {
             DataSet ds = new DataSet();
-            cnt.Open();
             cmd = cnt.CreateCommand();
             cmd.CommandText = sql;
             adap = new MySqlDataAdapter(cmd);
             adap.Fill(ds);
-            cnt.Close();
             return ds;
-            //mscd = new MySqlCommand(sql, msc);
-            //MySqlDataReader reader = mscd.ExecuteReader();
-            //reader.fill
-            //while (reader.Read())
-            //    if (reader.HasRows)
-            //    {
-            //        temp = reader.GetString(0);
-            //        msc.Close();
-            //        return temp;
-            //    }
-            //return "sb";
+        }
+
+        public void Open()
+        {
+
+            cnt.Open();
+        }
+
+        public void Close()
+        {
+            cnt.Close();
+        }
+
+        public void Execute(string sql)
+        {
+            cmd = new MySqlCommand(sql, cnt);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void Begin()
+        {
+            tran = cnt.BeginTransaction();
+            cmd = cnt.CreateCommand();
+            cmd.Transaction = tran;
+        }
+
+        public void Commit()
+        {
+            tran.Commit();
+        }
+
+        public void Rollback()
+        {
+            tran.Rollback();
         }
     }
 }

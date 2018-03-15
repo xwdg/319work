@@ -19,10 +19,14 @@ namespace Work
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
             Mysql mc = new Mysql("work_319", "zhq", "zhqssb", "39.106.61.96");
-            DataSet da = mc.CX($"select pwd from user where name = '{user.Text}'");
+            mc.Open();
+            DataSet da = mc.Select($"select pwd from user where name = '{user.Text}'");
+            mc.Close();
             if (da.Tables[0].Rows.Count == 0)
                 MessageBox.Show("账户不存在");
-            else if (da.Tables[0].Rows[0][0].ToString() != pwd.Password)
+            else 
+            
+            if (da.Tables[0].Rows[0][0].ToString() != pwd.Password)
                 MessageBox.Show("密码错误");
             else
                 DialogResult = true;

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,21 +21,22 @@ namespace Work
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
 
-    struct lala
-    {
-        public string s { set; get; }
-        public string t { set; get; }
-        //public Button la { set; get; }
-        public lala(string st,string tt)
-        {
-            s = st;
-            t = tt;
-        }
-    }
+    //struct lala
+    //{
+    //    public string s { set; get; }
+    //    public string t { set; get; }
+    //    //public Button la { set; get; }
+    //    public lala(string st,string tt)
+    //    {
+    //        s = st;
+    //        t = tt;
+    //    }
+    //}
 
     public partial class MainWindow : Window
     {
         private bool isLogined = false;
+        private Mysql ms;
         //private string rwmc;
         //private string scmc;
         //private int xysl;
@@ -49,9 +51,9 @@ namespace Work
         {
             try
             {
-                Mysql mc = new Mysql("work_319", "zhq", "zhqssb", "39.106.61.96");
-                DataSet da = mc.CX("select * from hlztp");
-                dgTable.AutoGenerateColumns = false;
+                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
+                DataSet da = mc.Select("select * from body");
+                //
                 dgTable.ItemsSource = da.Tables[0].DefaultView;
                 dgTable.LoadingRow += new EventHandler<DataGridRowEventArgs>(dgTable_LoadingRow);
             }
@@ -64,6 +66,7 @@ namespace Work
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             dgTable_Lod();
+
             //List<MyData> md = new List<MyData>();
             //foreach (DataRow dr in da.Tables[0].Rows)
             //foreach (DataColumn dc in da.Tables[0].Columns)//遍历所有的列
@@ -100,19 +103,20 @@ namespace Work
                 dgTable.CanUserAddRows = true;
             //if(b==true)
         }
-        
+
         private void mycehis(object sender, DataGridCellEditEndingEventArgs e)
         {
             //foreach(var a in dgTable.)
             //MessageBox.Show(dgTable.Columns.IndexOf(e.Column).ToString());
             //DataRowView selectItem = datagrid.items[索引] as DataRowView
-            MessageBox.Show(e.Column.Header.ToString());
-            var a = dgTable.SelectedItem;
+            //DataGridTextColumn dgt = e.Column as DataGridTextColumn;
+            //Binding binding = dgt.Binding as Binding;
+            //MessageBox.Show(binding.Path.Path);
+            //var a = dgTable.SelectedItem;
             //dgTable.
-            var b = a as DataRowView;
             //if(string(b.Row["xysl"])!=rwmc)
             //b.Row["xysl"] = "ah";
-            MessageBox.Show(dgTable.CurrentColumn.ToString());
+            //MessageBox.Show(dgTable.CurrentColumn.ToString());
         }
 
         private void dgTable_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
@@ -128,35 +132,141 @@ namespace Work
         {
             if (e.AddedCells.Count == 0)
                 return;
-            var currentCell = e.AddedCells[0];
-            
+            //var currentCell = e.AddedCells[0];
+
             //if (currentCell.Column == dgTable.Columns[0]|| currentCell.Column == dgTable.Columns[1])   //Columns[]从0开始  我这的ComboBox在第四列  所以为3  
             //{
-                //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
-                dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了  
+            //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
+            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了  
 
             //}
         }
 
-        private void muAdd_Click(object sender, RoutedEventArgs e)
+        private void muAdd_Click(object sender, RoutedEventArgs e) 
         {
             //if (isLogined == false)
             //    MessageBox.Show("cnm");
             //else
-            dgTable.CanUserAddRows = true;
-            dgTable.BeginEdit();
+            //dgTable.CanUserAddRows = true;
+            AddGoodsWindow add = new AddGoodsWindow();
+            add.ShowDialog();
         }
 
         private void muDel_Click(object sender, RoutedEventArgs e)
         {
-            //if (isLogined == false)
-                //MessageBox.Show("cnm");
+            foreach (DataRowView drv in dgTable.SelectedItems)
+                MessageBox.Show(drv.Row[0].ToString());
+            //MessageBox.Show(dgTable.SelectedItems.Count.ToString());
         }
 
         private void muCha_Click(object sender, RoutedEventArgs e)
         {
             foreach (DataGridColumn temp in dgTable.Columns)
                 temp.IsReadOnly = false;
+            //dgTable.s
+            //dgTable.BeginEdit();
+        }
+
+        private void dgTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void myceshi(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            //MessageBox.Show("asdjjsd");
+            //dgTable.
+            //DataGridRow 
+            MessageBox.Show(e.Row.GetIndex().ToString());
+            DataGridRow dr = (DataGridRow)dgTable.ItemContainerGenerator.ContainerFromIndex(e.Row.GetIndex());
+            DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(dr);
+            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(1); //取第0列每行单元格
+            cell.Focus();
+            //dgTable.
+            //e.Row.IsSelected = true;
+            //dgTable.BeginEdit();
+            //DataRowView rowView = e.Row.Item as DataRowView;
+            //MessageBox.Show(rowView.Row[0].ToString()+ dgTable.Items.Count+e.Row.GetType());
+            //e.Cancel = true;
+            //var row = dgTable.ItemsContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
+            //if (row != null)
+            //row.Focus();
+            //sender.ToString()
+            //tb.Focus();
+            //e.Row.//int numVisuals = VisualTreeHelper.GetChildrenCount(e.Row);
+            //MessageBox.Show(numVisuals.ToString());
+            //DataGridCellsPresenter 
+            //e.Row[0][0];
+            //cell.Focus();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dgTable.CanUserAddRows = true;
+            DataGridRow dt = (DataGridRow)dgTable.ItemContainerGenerator.ContainerFromIndex(80);
+            DataGridRow dr = (DataGridRow)dgTable.ItemContainerGenerator.ContainerFromIndex(8);
+            dt.IsSelected = true;
+            DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(dr);
+            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(1); //取第0列每行单元格
+            //cell.Focus();
+            //dgTable.SelectedIndex = 215;
+            dgTable.BeginEdit();
+           
+        }
+        public static T GetVisualChild<T>(Visual parent) where T : Visual
+        {
+            T child = default(T);
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < numVisuals; i++)
+            {
+                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                child = v as T;
+                if (child == null)
+                {
+                    child = GetVisualChild<T>(v);
+                }
+                if (child != null)
+                {
+                    break;
+                }
+            }
+            return child;
+        }
+
+        private void CheckAll_Click(object sender, RoutedEventArgs e)
+        {
+           //if(check_)
+        }
+
+        private void btnDltSelect_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgTable.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("未选中商品", "ERROR");
+                return;
+            }
+            else
+            {
+                try
+                {
+                    DataRowView drv = (DataRowView)dgTable.SelectedItem;
+                    Mysql ms = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
+                    ms.Open();
+                    ms.Execute($"delete from body where id='{drv.Row[0].ToString()}'");
+                    ms.Close();
+                    MessageBox.Show(drv.Row[0]+"删除成功");
+                    dgTable_Lod();
+                }
+
+                catch (Exception c)
+                {
+                    MessageBox.Show(c.Message);
+                }
+            }
+        }
+
+        private void btnAltSelect_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
-    }
+}
