@@ -15,6 +15,7 @@ namespace Work
         private MySqlConnection cnt = null;                  //与MySql数据库的连接
         private MySqlCommand cmd = null;                 //要执行的SQL命令
         private MySqlDataAdapter adap = null;           //数据库适配器，用于同步本地数据（DataSet）与数据库数据，包含要执行的SQL命令（MySqlCommand）
+        private MySqlTransaction tran = null;
 
         public Mysql(string db, string user, string pwd, string host)
         {
@@ -23,7 +24,7 @@ namespace Work
         }
 
         //SQL查询
-        public DataSet CX(string sql)
+        public DataSet Select(string sql)
         {
             DataSet ds = new DataSet();
             cmd = cnt.CreateCommand();
