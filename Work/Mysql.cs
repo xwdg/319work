@@ -11,10 +11,10 @@ namespace Work
 {
     class Mysql
     {
-        public MySqlConnection cnt = null;
-        private MySqlCommand cmd = null;
-        private MySqlDataAdapter adap = null;
-        private MySqlTransaction tran = null;
+        
+        private MySqlConnection cnt = null;                  //与MySql数据库的连接
+        private MySqlCommand cmd = null;                 //要执行的SQL命令
+        private MySqlDataAdapter adap = null;           //数据库适配器，用于同步本地数据（DataSet）与数据库数据，包含要执行的SQL命令（MySqlCommand）
 
         public Mysql(string db, string user, string pwd, string host)
         {
@@ -22,7 +22,8 @@ namespace Work
             cnt = new MySqlConnection(s);
         }
 
-        public DataSet Select(string sql)
+        //SQL查询
+        public DataSet CX(string sql)
         {
             DataSet ds = new DataSet();
             cmd = cnt.CreateCommand();
