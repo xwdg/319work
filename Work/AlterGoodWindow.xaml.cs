@@ -15,39 +15,42 @@ using System.Windows.Shapes;
 namespace Work
 {
     /// <summary>
-    /// AddGoodsWindow.xaml 的交互逻辑
+    /// AlterGoodWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class AddGoodsWindow : Window
+    /// 
+    public partial class AlterGoodWindow : Window
     {
-        public AddGoodsWindow()
+        private string ggid { get; set; }
+        private string gname { get; set; }
+        private double gprice { get; set; }
+        private int gid { get; set; }
+
+        public AlterGoodWindow(string _id = "", string _name = "",double _price = 0.0,int _nums=0)
         {
             InitializeComponent();
-            btnQr.IsEnabled = false;
+
+            name.Text = _name;
+            price.Text = _price.ToString();
+            nums.Text = _nums.ToString();
+            ggid = _id;
+
             name.Focus();
         }
 
         private void btnQr_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             try
             {
                 Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
                 mc.Open();
-                mc.Execute($"insert into body values('{name.Text}','{nums.Text}','{price.Text}','xxxxx')");
+                mc.Execute($"update body set height='{nums.Text}',weight='{price.Text}',cm='{name.Text}' where id = '{ggid}'");
                 mc.Close();
-                if (MessageBox.Show("添加成功,是否继续？", "result", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    name.Clear();
-                    name.Focus();
-                    nums.Clear();
-                    price.Clear();
-                }
-                else
-                    Close();
-
+                MessageBox.Show("修改成功", "result");
+                Close();
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.Message, "error", MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show(c.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

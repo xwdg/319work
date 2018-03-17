@@ -19,7 +19,7 @@ namespace Work
 
         public Mysql(string db, string user, string pwd, string host)
         {
-            string s = $"Host={host};Database={db};Username={user};Password={pwd}";
+            string s = $"Host={host};Database={db};Username={user};Password={pwd};charset=utf8";
             cnt = new MySqlConnection(s);
         }
 
