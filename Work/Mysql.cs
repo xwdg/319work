@@ -27,16 +27,17 @@ namespace Work
         public DataSet Select(string sql)
         {
             DataSet ds = new DataSet();
+
             cmd = cnt.CreateCommand();
             cmd.CommandText = sql;
             adap = new MySqlDataAdapter(cmd);
             adap.Fill(ds);
+
             return ds;
         }
 
         public void Open()
         {
-
             cnt.Open();
         }
 

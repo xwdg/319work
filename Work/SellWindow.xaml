@@ -1,0 +1,39 @@
+﻿<Window x:Class="Work.SellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Work"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Title="售卖" Height="466" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="选择商品" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0"></Label>
+        <!--<TextBox Name="id" Grid.Column="2"  Margin="8 20 8 20" TextChanged="id_TextChanged"></TextBox>-->
+        <Button Name="btnAdd" Content="添加" Grid.Row="0" Grid.Column="3" Margin="20 20 20 20" Click="btnAdd_Click"></Button>
+        <Label Content="总价格:" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <TextBlock Name="tbPrice" Text="0.0" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="4">
+            <TextBlock FontSize="15" x:Name="crGoods" Foreground="Red" Background="Gray" TextWrapping="Wrap" Text=""/>
+        </ScrollViewer>
+        <Button Name="btnBuy" Content="结算并保存到excel" Grid.Row="6" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnBuy_Click"></Button>
+        <Button Name="btnQx" Content="清空当前购买" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnQx_Click"></Button>
+        <ComboBox DisplayMemberPath="id" x:Name="myCombobox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="30 20 30 20" ItemsSource="{Binding id}"></ComboBox>
+    </Grid>
+</Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,19 +21,16 @@ namespace Work
     /// 
     public partial class AlterGoodWindow : Window
     {
-        private string ggid { get; set; }
-        private string gname { get; set; }
-        private double gprice { get; set; }
-        private int gid { get; set; }
+        private int Ggid { get; set; }
 
-        public AlterGoodWindow(string _id = "", string _name = "",double _price = 0.0,int _nums=0)
+        public AlterGoodWindow(int _id = 0, string _name = "",double _price = 0.0,int _nums=0)
         {
             InitializeComponent();
 
             name.Text = _name;
-            price.Text = _price.ToString();
+            price.Text = _price.ToString("0.00");
             nums.Text = _nums.ToString();
-            ggid = _id;
+            Ggid = _id;
 
             name.Focus();
         }
@@ -43,8 +41,9 @@ namespace Work
             {
                 Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
                 mc.Open();
-                mc.Execute($"update body set height='{nums.Text}',weight='{price.Text}',cm='{name.Text}' where id = '{ggid}'");
+                mc.Execute($"update cskcgl set nums='{nums.Text}',price='{price.Text}',spmc='{name.Text}' where id = '{Ggid}'");
                 mc.Close();
+
                 MessageBox.Show("修改成功", "result");
                 Close();
             }
@@ -65,6 +64,18 @@ namespace Work
                 btnQr.IsEnabled = true;
             else
                 btnQr.IsEnabled = false;
+        }
+
+        private void nums_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[0-9]");
+            e.Handled = !re.IsMatch(e.Text);
+        }
+
+        private void price_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("^[0-9]+(\\u002e[0-9]{0,2})?$");
+            e.Handled = !re.IsMatch(price.Text + e.Text);
         }
     }
 }

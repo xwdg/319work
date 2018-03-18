@@ -36,9 +36,27 @@ namespace Work
             try
             {
                 Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
-                DataSet da = mc.Select("select * from body");
+                mc.Open();
+                DataSet da = mc.Select("select * from cskcgl");
+                mc.Close();
                 dgTable.ItemsSource = da.Tables[0].DefaultView;
                 dgTable.LoadingRow += new EventHandler<DataGridRowEventArgs>(dgTable_LoadingRow);
+            }
+            catch
+            {
+                MessageBox.Show("初始化失败");
+            }
+        }
+
+        public void dgTable2_Lod()
+        {
+            try
+            {
+                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
+                mc.Open();
+                DataSet da = mc.Select("select * from xsgl");
+                mc.Close();
+                dgTable2.ItemsSource = da.Tables[0].DefaultView;
             }
             catch
             {
@@ -61,10 +79,33 @@ namespace Work
         //登录按钮点击事件
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow lw = new LoginWindow();
-            isLogined = (bool)lw.ShowDialog();
-            if (isLogined)
-                muMange.Visibility = Visibility.Visible;
+            
+            MenuItem btn = (MenuItem)sender;
+            if (isLogined == true)
+            {
+                btn.Header = "登录";
+                isLogined = false;
+                muMange.Visibility = Visibility.Hidden;
+                muXsgl.Visibility = Visibility.Hidden;
+                muSellGoods.Visibility = Visibility.Hidden;
+                dgTable.Visibility = Visibility.Visible;
+                dgTable2.Visibility= Visibility.Hidden;
+            }
+
+            else
+            {
+                LoginWindow lw = new LoginWindow();
+                isLogined = (bool)lw.ShowDialog();
+
+                if (isLogined)
+                {
+                    MessageBox.Show("登录成功");
+                    btn.Header = "注销";
+                    muMange.Visibility = Visibility.Visible;
+                    muXsgl.Visibility = Visibility.Visible;
+                    muSellGoods.Visibility = Visibility.Visible;
+                }
+            }
         }
         
         //数据格失去焦点后同步数据
@@ -181,7 +222,7 @@ namespace Work
                     Mysql ms = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
 
                     ms.Open();
-                    ms.Execute($"delete from body where id='{drv.Row[0].ToString()}'");
+                    ms.Execute($"delete from cskcgl where id='{drv.Row[0].ToString()}'");
                     ms.Close();
                     MessageBox.Show(drv.Row[0]+"删除成功");
                     dgTable_Lod();
@@ -206,7 +247,7 @@ namespace Work
                 try
                 {
                     DataRowView drv = (DataRowView)dgTable.SelectedItem;
-                    AlterGoodWindow agw = new AlterGoodWindow((string)drv.Row["id"], (string)drv.Row["cm"],(int)drv.Row["height"],(int)drv.Row["weight"]);
+                    AlterGoodWindow agw = new AlterGoodWindow((UInt16)drv.Row["id"], (string)drv.Row["spmc"],(float)drv.Row["price"],(int)drv.Row["nums"]);
                     agw.ShowDialog();
                     dgTable_Lod();
                 }
@@ -216,6 +257,34 @@ namespace Work
                     MessageBox.Show(c.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private void muXsgl_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = (MenuItem)sender;
+            if ("销售记录" == mi.Header.ToString())
+            {
+                mi.Header = "库存管理";
+                dgTable.Visibility = Visibility.Hidden;
+                dgTable2.Visibility = Visibility.Visible;
+                dgTable2_Lod();
+                muMange.Visibility = Visibility.Hidden;
+            }
+
+            else if ("库存管理" == mi.Header.ToString())
+            {
+                mi.Header = "销售记录";
+                dgTable.Visibility = Visibility.Visible;
+                dgTable2.Visibility = Visibility.Hidden;
+                dgTable_Lod();
+                muMange.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void muSellGoods_Click(object sender, RoutedEventArgs e)
+        {
+            SellWindow sw = new SellWindow();
+            sw.ShowDialog();
         }
     }
 }

@@ -24,8 +24,8 @@
             <Label Content="商品库存" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1"></Label>
             <Label Content="商品价格" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="2"></Label>
             <TextBox Name="name" Grid.Column="1" Margin="8 15 8 15" TextChanged="name_TextChanged"></TextBox>
-            <TextBox Name="nums" Grid.Column="1" Margin="8 15 8 15" Grid.Row="1" TextChanged="name_TextChanged"></TextBox>
-            <TextBox Name="price" Grid.Column="1" Margin="8 15 8 15" Grid.Row="2" TextChanged="name_TextChanged"></TextBox>
+            <TextBox Name="nums" PreviewTextInput="nums_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" Grid.Column="1" Margin="8 15 8 15" Grid.Row="1" TextChanged="name_TextChanged"></TextBox>
+            <TextBox Name="price" Grid.Column="1" Margin="8 15 8 15" Grid.Row="2" PreviewTextInput="price_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" TextChanged="name_TextChanged"></TextBox>
             <Button Name="btnQr" Content="确认" Grid.Row="3" Margin="70 10 30 10" Click="btnQr_Click"></Button>
             <Button Name="btnQx" Content="取消" Grid.Row="3" Grid.Column="1" Margin="30 10 70 10" Click="btnQx_Click"></Button>
         </Grid> 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace Work
             {
                 Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
                 mc.Open();
-                mc.Execute($"insert into body values('{name.Text}','{nums.Text}','{price.Text}','xxxxx')");
+                mc.Execute($"insert into cskcgl values(null,'{name.Text}','{price.Text}','{nums.Text}')");
                 mc.Close();
                 if (MessageBox.Show("添加成功,是否继续？", "result", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -62,6 +63,18 @@ namespace Work
                 btnQr.IsEnabled = true;
             else
                 btnQr.IsEnabled = false;
+        }
+
+        private void nums_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[0-9]");
+            e.Handled = !re.IsMatch(e.Text);
+        }
+
+        private void price_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("^[0-9]+(\\u002e[0-9]{0,2})?$");
+            e.Handled = !re.IsMatch(price.Text + e.Text);
         }
     }
 }

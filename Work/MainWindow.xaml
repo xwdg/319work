@@ -13,7 +13,7 @@
             <Menu DockPanel.Dock="Top" Height="30">
                 <MenuItem Header="登录"  Click="btnLogin_Click" Height="30" FontSize="15">
                 </MenuItem>
-                <MenuItem x:Name="muMange" Header="管理商品" Height="30" FontSize="15" Visibility="Hidden">
+                <MenuItem x:Name="muMange" Header="管理商品" Height="30" FontSize="15"  Visibility="Hidden">
                     <MenuItem x:Name="muAdd" Header="添加商品" Click="muAdd_Click">
                         <MenuItem.Icon>
                             <Image Source="image/lala.png"/>
@@ -26,7 +26,9 @@
                     </MenuItem>
                     <MenuItem x:Name="muCha" Header="修改选中商品" Click="btnAltSelect_Click"/>
                 </MenuItem>
-                <MenuItem Header="刷新"  Click="Button_Click" Margin="420 0 0 0" Height="30" FontSize="15">
+                <MenuItem Name="muXsgl" Header="销售记录" Height="30" FontSize="15" Click="muXsgl_Click" Visibility="Hidden"/>
+                <MenuItem Name="muSellGoods" Header="售卖" Height="30" FontSize="15" Click="muSellGoods_Click" Visibility="Hidden"/>
+                <MenuItem Header="刷新"  Click="Button_Click" Margin="250 0 0 0" Height="30" FontSize="15">
                 </MenuItem>
             </Menu>
             <Grid>
@@ -53,6 +55,7 @@
                           RowDetailsVisibilityMode="VisibleWhenSelected" 
                           SelectionMode="Single" 
                           AutoGenerateColumns="False"
+                          Visibility="Visible"
                           AlternatingRowBackground="LightGray" 
                           RowHeaderWidth="30"
                           AlternationCount="2">
@@ -69,14 +72,42 @@
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="90" Binding="{Binding id,UpdateSourceTrigger=PropertyChanged}" Header="商品编号" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding height,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding weight,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding cm,UpdateSourceTrigger=PropertyChanged}" Header="商品库存" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="120" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="120" Binding="{Binding price,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="120" Binding="{Binding nums,UpdateSourceTrigger=PropertyChanged}" Header="商品库存" IsReadOnly="True"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <!--<Button Name="btnDltSelect" Click="btnDltSelect_Click" Margin="60 10 20 10" Background="LightSkyBlue" Foreground="Red" Content="删除选中商品" Grid.Row="5" Grid.ColumnSpan="2"></Button>
-                <Button Name="btnAltSelect" Click="btnAltSelect_Click" Margin="20 10 60 10" Background="LightSkyBlue" Foreground="Red" Content="修改选中商品" Grid.Row="5" Grid.Column="4"  Grid.ColumnSpan="2"></Button>-->
-        </Grid>
+                <DataGrid Name="dgTable2" 
+                          Grid.Column="0" 
+                          Grid.ColumnSpan="6" 
+                          CanUserAddRows="False" 
+                          Grid.RowSpan="4" 
+                          RowDetailsVisibilityMode="VisibleWhenSelected" 
+                          SelectionMode="Single" 
+                          AutoGenerateColumns="False"
+                          AlternatingRowBackground="LightGray" 
+                          RowHeaderWidth="30"
+                          Visibility="Hidden"
+                          AlternationCount="2">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--当鼠标经过时 改变颜色-->
+                                    <Setter Property="Background" Value="SkyBlue"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="150" Binding="{Binding time,UpdateSourceTrigger=PropertyChanged}" Header="订单时间" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="70" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="70" Binding="{Binding price,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Width="140" Binding="{Binding lsh,UpdateSourceTrigger=PropertyChanged}" Header="流水号" IsReadOnly="True"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>

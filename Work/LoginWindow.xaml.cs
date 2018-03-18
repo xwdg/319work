@@ -18,7 +18,7 @@ namespace Work
 
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
-            Mysql mc = new Mysql("work_319", "zhq", "zhqssb", "39.106.61.96");
+            Mysql mc = new Mysql("gcxm ", "gcxm", "gcxmgcxm", "39.106.61.96");
             mc.Open();
             DataSet da = mc.Select($"select pwd from user where name = '{user.Text}'");
             mc.Close();
