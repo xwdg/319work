@@ -93,7 +93,7 @@ namespace Work
             //if (currentCell.Column == dgTable.Columns[0]|| currentCell.Column == dgTable.Columns[1])   //Columns[]从0开始  我这的ComboBox在第四列  所以为3  
             //{
             //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
-            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了  
+            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了
 
             //}
         }
@@ -193,7 +193,7 @@ namespace Work
                 }
             }
         }
-
+        //修改商品时的代码
         private void btnAltSelect_Click(object sender, RoutedEventArgs e)
         {
             if (dgTable.SelectedItems.Count == 0)
