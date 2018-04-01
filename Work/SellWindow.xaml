@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
-        Title="售卖" Height="466" Width="400">
+        Title="{DynamicResource SellWindow}" Height="600" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -23,17 +23,54 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="选择商品" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0"></Label>
+        <Label Content="{DynamicResource Select}" Grid.Row="4" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
         <!--<TextBox Name="id" Grid.Column="2"  Margin="8 20 8 20" TextChanged="id_TextChanged"></TextBox>-->
-        <Button Name="btnAdd" Content="添加" Grid.Row="0" Grid.Column="3" Margin="20 20 20 20" Click="btnAdd_Click"></Button>
-        <Label Content="总价格:" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
-        <TextBlock Name="tbPrice" Text="0.0" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="4">
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="4">
+            <Button Name="btnAdd" Content="{DynamicResource Additem}" Grid.Row="4" Grid.Column="3" Margin="10 40 20 40" Click="btnAdd_Click"></Button>
+        </Grid>
+        <Grid  Grid.Row="6" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="{DynamicResource Price}" Grid.ColumnSpan="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+            <Label Content="{DynamicResource Money}" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
+            <TextBlock Name="tbPrice" Text="0.0" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <Label Content="{DynamicResource Pay}" Grid.Column="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+            <Label Content="{DynamicResource Money}" Grid.Column="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
+            <TextBox Name="prices" PreviewTextInput="prices_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" Grid.ColumnSpan="2" Grid.Column="6" Margin="10 22 10 22" Grid.Row="6" TextChanged="prices_TextChanged"></TextBox>
+            <Label Content="{DynamicResource Charge}" Grid.Column="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+            <Label Content="{DynamicResource Money}" Grid.Column="9" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
+            <TextBlock Name="tbCharge" Text="0.0" Grid.ColumnSpan="2" Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Grid>
+        <Label Content="{DynamicResource Nums}" Grid.Row="5" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <TextBox Text="1" Name="nums" PreviewTextInput="nums_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" Margin="38 22 38 22" Grid.Row="5" TextChanged="nums_TextChanged"></TextBox>
+        <!--<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="4">
             <TextBlock FontSize="15" x:Name="crGoods" Foreground="Red" Background="Gray" TextWrapping="Wrap" Text=""/>
-        </ScrollViewer>
-        <Button Name="btnBuy" Content="结算并保存到excel" Grid.Row="6" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnBuy_Click"></Button>
-        <Button Name="btnQx" Content="清空当前购买" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnQx_Click"></Button>
-        <ComboBox DisplayMemberPath="id" x:Name="myCombobox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="30 20 30 20" ItemsSource="{Binding id}"></ComboBox>
+        </ScrollViewer>-->
+        <DataGrid Name="dgTable" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="4" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Binding="{Binding id,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Id}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource productName}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding nums,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Nums}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding sprice,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource SPrice}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding wprice,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Price}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="btnBuy" Content="{DynamicResource Account}" Grid.Row="7" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnBuy_Click"></Button>
+        <Button Name="btnQx" Content="{DynamicResource Clear}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="30 15 30 15" Click="btnQx_Click"></Button>
+        <ComboBox DisplayMemberPath="id" x:Name="myCombobox" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="30 20 30 20" ItemsSource="{Binding id}"></ComboBox>
     </Grid>
 </Window>

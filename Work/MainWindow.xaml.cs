@@ -23,128 +23,79 @@ namespace Work
 
     public partial class MainWindow : Window
     {
-        private bool isLogined = false;
+        private bool IsLogined = false;
+        public string UserName { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        //初始化或刷新DataGrid数据
-        public void dgTable_Lod()
-        {
-            try
-            {
-                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
-                mc.Open();
-                DataSet da = mc.Select("select * from cskcgl");
-                mc.Close();
-                dgTable.ItemsSource = da.Tables[0].DefaultView;
-                dgTable.LoadingRow += new EventHandler<DataGridRowEventArgs>(dgTable_LoadingRow);
-            }
-            catch
-            {
-                MessageBox.Show("初始化失败");
-            }
+            frmMain.Navigate(new Uri("PageQuery.xaml", UriKind.Relative));
         }
-
-        public void dgTable2_Lod()
-        {
-            try
-            {
-                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
-                mc.Open();
-                DataSet da = mc.Select("select * from xsgl");
-                mc.Close();
-                dgTable2.ItemsSource = da.Tables[0].DefaultView;
-            }
-            catch
-            {
-                MessageBox.Show("初始化失败");
-            }
-        }
-
-        //初始化DataGrid
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            dgTable_Lod();
-        }
-
-        //初始化DataGrid行序号
-        private void dgTable_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            e.Row.Header = e.Row.GetIndex() + 1;
-        }
-
         //登录按钮点击事件
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             
             MenuItem btn = (MenuItem)sender;
-            if (isLogined == true)
+            if (IsLogined == true)
             {
-                btn.Header = "登录";
-                isLogined = false;
-                muMange.Visibility = Visibility.Hidden;
-                muXsgl.Visibility = Visibility.Hidden;
-                muSellGoods.Visibility = Visibility.Hidden;
-                dgTable.Visibility = Visibility.Visible;
-                dgTable2.Visibility= Visibility.Hidden;
+                IsLogined = false;
+                UserName = "";
             }
 
             else
             {
                 LoginWindow lw = new LoginWindow();
-                isLogined = (bool)lw.ShowDialog();
 
-                if (isLogined)
+                IsLogined = (bool)lw.ShowDialog();
+
+                if (IsLogined)
                 {
-                    MessageBox.Show("登录成功");
-                    btn.Header = "注销";
-                    muMange.Visibility = Visibility.Visible;
-                    muXsgl.Visibility = Visibility.Visible;
-                    muSellGoods.Visibility = Visibility.Visible;
+                    UserName = lw.UserName;
                 }
             }
         }
         
-        //数据格失去焦点后同步数据
-        private void mycehis(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            //foreach(var a in dgTable.)
-            //MessageBox.Show(dgTable.Columns.IndexOf(e.Column).ToString());
-            //DataRowView selectItem = datagrid.items[索引] as DataRowView
-            //DataGridTextColumn dgt = e.Column as DataGridTextColumn;
-            //Binding binding = dgt.Binding as Binding;
-            //MessageBox.Show(binding.Path.Path);
-            //var a = dgTable.SelectedItem;
-            //dgTable.
-            //if(string(b.Row["xysl"])!=rwmc)
-            //b.Row["xysl"] = "ah";
-            //MessageBox.Show(dgTable.CurrentColumn.ToString());
-        }
+        ////数据格失去焦点后同步数据
+        //private void mycehis(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    //foreach(var a in dgTable.)
+        //    //MessageBox.Show(dgTable.Columns.IndexOf(e.Column).ToString());
+        //    //DataRowView selectItem = datagrid.items[索引] as DataRowView
+        //    //DataGridTextColumn dgt = e.Column as DataGridTextColumn;
+        //    //Binding binding = dgt.Binding as Binding;
+        //    //MessageBox.Show(binding.Path.Path);
+        //    //var a = dgTable.SelectedItem;
+        //    //dgTable.
+        //    //if(string(b.Row["xysl"])!=rwmc)
+        //    //b.Row["xysl"] = "ah";
+        //    //MessageBox.Show(dgTable.CurrentColumn.ToString());
+        //}
         
-        //。。。
-        private void dgTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            if (e.AddedCells.Count == 0)
-                return;
-            //var currentCell = e.AddedCells[0];
+        ////。。。
+        //private void dgTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        //{
+        //    if (e.AddedCells.Count == 0)
+        //        return;
+        //    //var currentCell = e.AddedCells[0];
 
-            //if (currentCell.Column == dgTable.Columns[0]|| currentCell.Column == dgTable.Columns[1])   //Columns[]从0开始  我这的ComboBox在第四列  所以为3  
-            //{
-            //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
-            dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了
+        //    //if (currentCell.Column == dgTable.Columns[0]|| currentCell.Column == dgTable.Columns[1])   //Columns[]从0开始  我这的ComboBox在第四列  所以为3  
+        //    //{
+        //    //MessageBox.Show(dgTable.Columns.IndexOf(currentCell.Column).ToString());
+        //    dgTable.BeginEdit();    //  进入编辑模式  这样单击一次就可以选择ComboBox里面的值了
 
-            //}
-        }
+        //    //}
+        //}
 
         //“管理商品--添加商品”菜单项点击事件
         private void muAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddGoodsWindow add = new AddGoodsWindow();
-            add.ShowDialog();
-            dgTable_Lod();
+            //AddGoodsWindow add = new AddGoodsWindow(UserName);
+            //add.ShowDialog();
+
+            //dgTable_Lod(Da[0].dg, Da[0].ta);
+            frmMain.Navigate(new Uri("PageAddGoods.xaml", UriKind.Relative));
+
         }
         
         //“管理商品--修改商品”菜单项点击事件
@@ -182,11 +133,6 @@ namespace Work
         //    //cell.Focus();
         //}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            dgTable_Lod();
-        }
-
         //public static T GetVisualChild<T>(Visual parent) where T : Visual
         //{
         //    T child = default(T);
@@ -209,82 +155,104 @@ namespace Work
         
         private void btnDltSelect_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTable.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("未选中商品", "ERROR");
-                return;
-            }
-            else
-            {
-                try
-                {
-                    DataRowView drv = (DataRowView)dgTable.SelectedItem;
-                    Mysql ms = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
+            //if (dgTable.SelectedItems.Count == 0)
+            //{
+            //    MessageBox.Show($"{TryFindResource("Errmessage1")}", "ERROR");
+            //    return;
+            //}
+            //else
+            //{
+            //    DataRowView drv = (DataRowView)dgTable.SelectedItem;
+            //    Mysql ms = new Mysql();
 
-                    ms.Open();
-                    ms.Execute($"delete from cskcgl where id='{drv.Row[0].ToString()}'");
-                    ms.Close();
-                    MessageBox.Show(drv.Row[0]+"删除成功");
-                    dgTable_Lod();
-                }
+            //    ms.Open();
+            //    ms.Begin();
 
-                catch (Exception c)
-                {
-                    MessageBox.Show(c.Message,"error",MessageBoxButton.OK,MessageBoxImage.Error);
-                }
-            }
+            //    try
+            //    {
+            //        ms.Execute($"delete from cskcgl where id='{drv.Row[0].ToString()}'");
+            //        ms.Execute($"insert into record values(null,'{UserName}','delete',now(),{drv.Row[0]},{drv.Row[1]},{drv.Row[2]},null,null)");
+                    
+            //        MessageBox.Show(drv.Row[0]+$"{TryFindResource("Message1")}");
+            //        dgTable_Lod(Da[0].dg, Da[0].ta);
+            //        ms.Commit();
+            //    }
+
+            //    catch (Exception c)
+            //    {
+            //        MessageBox.Show(c.Message,"error",MessageBoxButton.OK,MessageBoxImage.Error);
+            //        ms.Rollback();
+            //    }
+
+            //    ms.Close();
+            //}
         }
         //修改商品时的代码
         private void btnAltSelect_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTable.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("未选中商品", "ERROR");
-                return;
-            }
-            else
-            {
-                try
-                {
-                    DataRowView drv = (DataRowView)dgTable.SelectedItem;
-                    AlterGoodWindow agw = new AlterGoodWindow((UInt16)drv.Row["id"], (string)drv.Row["spmc"],(float)drv.Row["price"],(int)drv.Row["nums"]);
-                    agw.ShowDialog();
-                    dgTable_Lod();
-                }
-
-                catch (Exception c)
-                {
-                    MessageBox.Show(c.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            
         }
 
         private void muXsgl_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem mi = (MenuItem)sender;
-            if ("销售记录" == mi.Header.ToString())
-            {
-                mi.Header = "库存管理";
-                dgTable.Visibility = Visibility.Hidden;
-                dgTable2.Visibility = Visibility.Visible;
-                dgTable2_Lod();
-                muMange.Visibility = Visibility.Hidden;
-            }
-
-            else if ("库存管理" == mi.Header.ToString())
-            {
-                mi.Header = "销售记录";
-                dgTable.Visibility = Visibility.Visible;
-                dgTable2.Visibility = Visibility.Hidden;
-                dgTable_Lod();
-                muMange.Visibility = Visibility.Visible;
-            }
+            frmMain.Navigate(new Uri("PageQuerySellDetail.xaml", UriKind.Relative));
         }
 
         private void muSellGoods_Click(object sender, RoutedEventArgs e)
         {
             SellWindow sw = new SellWindow();
             sw.ShowDialog();
+        }
+
+        private void bthSwitch_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = (MenuItem)sender;
+            ResourceDictionary dict = new ResourceDictionary();
+
+            dict.Source = new Uri($@"Resources\Language\{mi.Name}.xaml", UriKind.Relative);
+            Application.Current.Resources.MergedDictionaries[0] = dict;
+        }
+
+        
+        private void muSel_Click(object sender, RoutedEventArgs e)
+        {
+            frmMain.Navigate(new Uri("PageQuery.xaml", UriKind.Relative));
+        }
+
+        private void tviMangeRecord_Selected(object sender, RoutedEventArgs e)
+        {
+            frmMain.Navigate(new Uri("PageQuerySell.xaml", UriKind.Relative));
+        }
+
+        private void tvidel_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tvispbg_Selected(object sender, RoutedEventArgs e)
+        {
+            frmMain.Navigate(new Uri("PageQueryGoodsAlter.xaml", UriKind.Relative));
+        }
+
+        private void tviUp_Selected(object sender, RoutedEventArgs e)
+        {
+            //frmMain.Navigate(new Uri("PageAlterGoods.xaml", UriKind.Relative));
+            PageAlterGoods page1 = new PageAlterGoods();
+            this.frmMain.Content = page1;
+            page1.parentWindow = this;
+        }
+
+        private void tviShowDatebase_Selected(object sender, RoutedEventArgs e)
+        {
+            GetAppCon gac = new GetAppCon();
+
+            string DBName = gac.ReadSetting("DBName");
+            string DBURL = gac.ReadSetting("DBURL");
+            string DBUser = gac.ReadSetting("DBUser");
+            string DBPassword = gac.ReadSetting("DBPwd");
+            string DBPort = gac.ReadSetting("DBPort");
+
+            MessageBox.Show($"{TryFindResource("dbName")}:{DBName}\n{TryFindResource("ipAddress")}:{DBURL}\n{TryFindResource("Username")}:{DBUser}\n{TryFindResource("Password")}:{DBPassword}\n{TryFindResource("port")}:{DBPort}\n");
         }
     }
 }

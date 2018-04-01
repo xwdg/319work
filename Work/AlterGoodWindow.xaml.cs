@@ -22,8 +22,9 @@ namespace Work
     public partial class AlterGoodWindow : Window
     {
         private int Ggid { get; set; }
+        private string UserName { get; set; }
 
-        public AlterGoodWindow(int _id = 0, string _name = "",double _price = 0.0,int _nums=0)
+        public AlterGoodWindow(int _id = 0, string _name = "",double _price = 0.0,int _nums=0,string _pname="")
         {
             InitializeComponent();
 
@@ -31,6 +32,7 @@ namespace Work
             price.Text = _price.ToString("0.00");
             nums.Text = _nums.ToString();
             Ggid = _id;
+            UserName = _pname;
 
             name.Focus();
         }
@@ -39,12 +41,13 @@ namespace Work
         {
             try
             {
-                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
+                Mysql mc = new Mysql();
                 mc.Open();
                 mc.Execute($"update cskcgl set nums='{nums.Text}',price='{price.Text}',spmc='{name.Text}' where id = '{Ggid}'");
+                mc.Execute($"insert into record values(null,'{UserName}','update',now())");
                 mc.Close();
 
-                MessageBox.Show("修改成功", "result");
+                MessageBox.Show($"{TryFindResource("Message3")}", "result");
                 Close();
             }
             catch (Exception c)

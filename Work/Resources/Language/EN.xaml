@@ -1,0 +1,188 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Work.Resources.Language"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Sign">
+        sign in/sign out
+    </sys:String>
+    <sys:String x:Key="Language">
+        Language
+    </sys:String>
+    <sys:String x:Key="Zh">
+        简体中文
+    </sys:String>
+    <sys:String x:Key="operator">
+        operator
+    </sys:String>
+    <sys:String x:Key="operation">
+        operation
+    </sys:String>
+    <sys:String x:Key="oldName">
+        old name
+    </sys:String>
+    <sys:String x:Key="newName">
+        new name
+    </sys:String>
+    <sys:String x:Key="oldPrice">
+        old price
+    </sys:String>
+    <sys:String x:Key="newPrice">
+        new price
+    </sys:String>
+    <sys:String x:Key="En">
+        English
+    </sys:String>
+    <sys:String x:Key="queryGoods">
+        query product
+    </sys:String>
+    <sys:String x:Key="alterGoods">
+        modify product
+    </sys:String>
+    <sys:String x:Key="settings">
+        system setting
+    </sys:String>
+    <sys:String x:Key="queryDatebaseInfor">
+        query database information
+    </sys:String>
+    <sys:String x:Key="mangeSell">
+        sales management
+    </sys:String>
+    <sys:String x:Key="querySellRecord">
+        query sell record
+    </sys:String>
+    <sys:String x:Key="querySellDetail">
+        query sell record
+    </sys:String>
+    <sys:String x:Key="userMange">
+        user manage
+    </sys:String>
+    <sys:String x:Key="queryGoodsAlter">
+        query goods alter
+    </sys:String>
+    <sys:String x:Key="reset">
+        reset
+    </sys:String>
+    <sys:String x:Key="minMoney">
+        minimum price 
+    </sys:String>
+    <sys:String x:Key="maxMoney">
+        maximum price
+    </sys:String>
+    <sys:String x:Key="ipAddress">
+        ip address
+    </sys:String>
+    <sys:String x:Key="dbName">
+        database name
+    </sys:String>
+    <sys:String x:Key="port">
+        port
+    </sys:String>
+    <sys:String x:Key="test">
+        test
+    </sys:String>
+    <sys:String x:Key="Query">
+        query
+    </sys:String>
+    <sys:String x:Key="beginDate">
+        beginDate
+    </sys:String>
+    <sys:String x:Key="endDate">
+        endDate
+    </sys:String>
+    <sys:String x:Key="Cancel">
+        Cancel
+    </sys:String>
+    <sys:String x:Key="Account">
+        account and save as excel
+    </sys:String>
+    <sys:String x:Key="Clear">
+        clear
+    </sys:String>
+    <sys:String x:Key="Price">
+        Price
+    </sys:String>
+    <sys:String x:Key="Money">
+        $
+    </sys:String>
+    <sys:String x:Key="Id">
+        Id
+    </sys:String>
+    <sys:String x:Key="productName">
+        product name
+    </sys:String>
+    <sys:String x:Key="Nums">
+        numbers
+    </sys:String>
+    <sys:String x:Key="Datetime">
+        date
+    </sys:String>
+    <sys:String x:Key="serialNumber">
+        serial number
+    </sys:String>
+    <sys:String x:Key="Select">
+        select item
+    </sys:String>
+    <sys:String x:Key="Additem">
+        add
+    </sys:String>
+    <sys:String x:Key="Errmessage1">
+        has't selected an item
+    </sys:String>
+    <sys:String x:Key="Message1">
+        successfully deleted
+    </sys:String>
+    <sys:String x:Key="Message2">
+        username or password error
+    </sys:String>
+    <sys:String x:Key="Message3">
+        success
+    </sys:String>
+    <sys:String x:Key="Message4">
+        success continue?
+    </sys:String>
+    <sys:String x:Key="Pay">
+        Pay
+    </sys:String>
+    <sys:String x:Key="Charge">
+        Charge
+    </sys:String>
+    <sys:String x:Key="SPrice">
+        univalent
+    </sys:String>
+    <sys:String x:Key="date">
+       date
+    </sys:String>
+    <sys:String x:Key="Confirm">
+        confirm
+    </sys:String>
+    <sys:String x:Key="ChangeTable">
+        mange goods/Orders
+    </sys:String>
+    <sys:String x:Key="Username">
+        user name
+    </sys:String>
+    <sys:String x:Key="Password">
+        password
+    </sys:String>
+    <sys:String x:Key="Login">
+        Login
+    </sys:String>
+    <sys:String x:Key="Mange">
+        mange
+    </sys:String>
+    <sys:String x:Key="Add">
+        add goods
+    </sys:String>
+    <sys:String x:Key="Alter">
+        modify selected product
+    </sys:String>
+    <sys:String x:Key="Delete">
+        delete selected product
+    </sys:String>
+    <sys:String x:Key="SellWindow">
+        sellwindow
+    </sys:String>
+    <sys:String x:Key="refresh">
+        refresh
+    </sys:String>
+</ResourceDictionary>

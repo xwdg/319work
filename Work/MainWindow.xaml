@@ -5,31 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Work"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="500"
-        ResizeMode="CanMinimize"
+        Title="MainWindow" Height="400" Width="1204"
         WindowStartupLocation="CenterScreen">
-    <Grid Loaded="Grid_Loaded">
+    <Window.Resources>
+        <Style x:Key="FirstItemStyle" TargetType="MenuItem">
+            <Style.Setters>
+                <Setter Property="Width" Value="128"></Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#0a99f3"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SecondItemStyle" TargetType="MenuItem">
+            <Style.Setters>
+                <Setter Property="Width" Value="80"></Setter>
+            </Style.Setters>
+                <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Height="30">
-                <MenuItem Header="登录"  Click="btnLogin_Click" Height="30" FontSize="15">
+            <Menu DockPanel.Dock="Top" Background="Azure" Grid.ColumnSpan="5" Height="30">
+                <MenuItem Style="{StaticResource FirstItemStyle}" Header="{DynamicResource Sign}"  Click="btnLogin_Click" Height="30" FontSize="15"/>
+                <MenuItem Style="{StaticResource FirstItemStyle}" Header="{DynamicResource Language}" Height="30" FontSize="15">
+                    <MenuItem Name="ZH" Header="{DynamicResource Zh}"  Click="bthSwitch_Click" Height="30" FontSize="15"/>
+                    <MenuItem Name="EN" Header="{DynamicResource En}"  Click="bthSwitch_Click" Height="30" FontSize="15"/>
                 </MenuItem>
-                <MenuItem x:Name="muMange" Header="管理商品" Height="30" FontSize="15"  Visibility="Hidden">
-                    <MenuItem x:Name="muAdd" Header="添加商品" Click="muAdd_Click">
+                <MenuItem Style="{StaticResource FirstItemStyle}" x:Name="muMange" Header="{DynamicResource Mange}" Height="30" FontSize="15">
+                    <MenuItem x:Name="muAdd" Header="{DynamicResource Add}" Click="muAdd_Click">
                         <MenuItem.Icon>
                             <Image Source="image/lala.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="muDel" Header="删除选中商品" Click="btnDltSelect_Click">
+                    <MenuItem x:Name="btnDltSelect" Header="{DynamicResource Delete}" Click="btnDltSelect_Click">
                         <MenuItem.Icon>
                             <Image Source="image/wrong.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="muCha" Header="修改选中商品" Click="btnAltSelect_Click"/>
+                    <MenuItem x:Name="btnAltSelect" Header="{DynamicResource Alter}" Click="btnAltSelect_Click"/>
                 </MenuItem>
-                <MenuItem Name="muXsgl" Header="销售记录" Height="30" FontSize="15" Click="muXsgl_Click" Visibility="Hidden"/>
-                <MenuItem Name="muSellGoods" Header="售卖" Height="30" FontSize="15" Click="muSellGoods_Click" Visibility="Hidden"/>
-                <MenuItem Header="刷新"  Click="Button_Click" Margin="250 0 0 0" Height="30" FontSize="15">
-                </MenuItem>
+                <MenuItem Style="{StaticResource FirstItemStyle}" Name="muXsgl" Header="{DynamicResource ChangeTable}" Height="30" FontSize="15" Click="muXsgl_Click" Visibility="Visible"/>
+                <MenuItem Style="{StaticResource FirstItemStyle}" Name="muSellGoods" Header="{DynamicResource SellWindow}" Height="30" FontSize="15" Click="muSellGoods_Click" Visibility="Hidden"/>
             </Menu>
             <Grid>
                 <Grid.RowDefinitions>
@@ -47,66 +71,25 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid Name="dgTable" 
-                          Grid.Column="0" 
-                          Grid.ColumnSpan="6" 
-                          CanUserAddRows="False" 
-                          Grid.RowSpan="4" 
-                          RowDetailsVisibilityMode="VisibleWhenSelected" 
-                          SelectionMode="Single" 
-                          AutoGenerateColumns="False"
-                          Visibility="Visible"
-                          AlternatingRowBackground="LightGray" 
-                          RowHeaderWidth="30"
-                          AlternationCount="2">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow" >
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <!--当鼠标经过时 改变颜色-->
-                                    <Setter Property="Background" Value="SkyBlue"/>
-                                    <Setter Property="Foreground" Value="Red"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="90" Binding="{Binding id,UpdateSourceTrigger=PropertyChanged}" Header="商品编号" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding price,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="120" Binding="{Binding nums,UpdateSourceTrigger=PropertyChanged}" Header="商品库存" IsReadOnly="True"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <DataGrid Name="dgTable2" 
-                          Grid.Column="0" 
-                          Grid.ColumnSpan="6" 
-                          CanUserAddRows="False" 
-                          Grid.RowSpan="4" 
-                          RowDetailsVisibilityMode="VisibleWhenSelected" 
-                          SelectionMode="Single" 
-                          AutoGenerateColumns="False"
-                          AlternatingRowBackground="LightGray" 
-                          RowHeaderWidth="30"
-                          Visibility="Hidden"
-                          AlternationCount="2">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow" >
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <!--当鼠标经过时 改变颜色-->
-                                    <Setter Property="Background" Value="SkyBlue"/>
-                                    <Setter Property="Foreground" Value="Red"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="150" Binding="{Binding time,UpdateSourceTrigger=PropertyChanged}" Header="订单时间" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="70" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="商品名称" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="70" Binding="{Binding price,UpdateSourceTrigger=PropertyChanged}" Header="商品价格" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Width="140" Binding="{Binding lsh,UpdateSourceTrigger=PropertyChanged}" Header="流水号" IsReadOnly="True"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <TreeView Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="5" x:Name="treeView" FontSize="18" Background="AliceBlue">
+                    <TreeViewItem Header="{DynamicResource settings}" >
+                        <TreeViewItem Name="tviShowDatebase" Header="{DynamicResource queryDatebaseInfor}" Selected="tviShowDatebase_Selected"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="{DynamicResource Mange}">
+                        <TreeViewItem Name="tviSel" Header="{DynamicResource queryGoods}" Selected="muSel_Click"/>
+                        <TreeViewItem Name="tviAdd" Header="{DynamicResource Add}" Selected="muAdd_Click"/>
+                        <TreeViewItem Name="tviUp" Header="{DynamicResource alterGoods}" Selected="tviUp_Selected"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="{DynamicResource mangeSell}">
+                        <TreeViewItem Name="tviSell" Header="{DynamicResource SellWindow}" Selected="muSellGoods_Click"/>
+                        <TreeViewItem Name="tviMangeRecord" Header="{DynamicResource querySellRecord}" Selected="tviMangeRecord_Selected"/>
+                        <TreeViewItem Name="tviManger" Header="{DynamicResource querySellDetail}"  Selected="muXsgl_Click"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="{DynamicResource userMange}" >
+                        <TreeViewItem Name="tvispbg" Header="{DynamicResource queryGoodsAlter}" Selected="tvispbg_Selected"/>
+                    </TreeViewItem>
+                </TreeView>
+                <Frame Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Name="frmMain" NavigationUIVisibility="Hidden"></Frame>
             </Grid>
         </DockPanel>
     </Grid>

@@ -9,6 +9,8 @@ namespace Work
     /// </summary>
     public partial class LoginWindow : Window
     {
+        public string UserName { get; set; }
+
         public LoginWindow()
         {
             InitializeComponent();
@@ -18,18 +20,19 @@ namespace Work
 
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
-            Mysql mc = new Mysql("gcxm ", "gcxm", "gcxmgcxm", "39.106.61.96");
+            Mysql mc = new Mysql();
+
             mc.Open();
-            DataSet da = mc.Select($"select pwd from user where name = '{user.Text}'");
+            DataSet da = mc.Select($"select * from user where name = '{user.Text}' and pwd =MD5('{pwd.Password}')");
             mc.Close();
+
             if (da.Tables[0].Rows.Count == 0)
-                MessageBox.Show("账户不存在");
-            else 
-            
-            if (da.Tables[0].Rows[0][0].ToString() != pwd.Password)
-                MessageBox.Show("密码错误");
+                MessageBox.Show($"{TryFindResource("Message2")}");
             else
+            {
+                UserName = user.Text;
                 DialogResult = true;
+            }
         }
         
         private void user_TextChanged(object sender, TextChangedEventArgs e)

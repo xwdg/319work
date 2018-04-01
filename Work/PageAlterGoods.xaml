@@ -1,0 +1,74 @@
+﻿<Page x:Class="Work.PageAlterGoods"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Work"
+      mc:Ignorable="d" 
+      d:DesignHeight="339" d:DesignWidth="997"
+      Title="PageAlterGoods">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="dgTable"
+                  CanUserAddRows="False"
+                  Grid.ColumnSpan="3"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  SelectionMode="Single" 
+                  AutoGenerateColumns="False"
+                  Visibility="Visible"
+                  AlternatingRowBackground="LightGray" 
+                  RowHeaderWidth="30"
+                  AlternationCount="2">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="GotFocus" Handler="Item_GotFocus"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <!--当鼠标经过时 改变颜色-->
+                            <Setter Property="Background" Value="SkyBlue"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Binding="{Binding id,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Id}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding spmc,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource productName}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding price,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Price}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Binding="{Binding nums,UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Nums}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Content="{DynamicResource productName}" FontSize="25" VerticalContentAlignment="Center" Grid.Row="0"></Label>
+            <Label Content="{DynamicResource Nums}" FontSize="25" VerticalContentAlignment="Center" Grid.Row="1"></Label>
+            <Label Content="{DynamicResource Price}" FontSize="25" VerticalContentAlignment="Center" Grid.Row="2"></Label>
+            <Label Content="{DynamicResource Id}" FontSize="25" VerticalContentAlignment="Center" Grid.Row="3"></Label>
+            <TextBox Name="name" Grid.Column="1" Grid.ColumnSpan="2" FontSize="25" VerticalAlignment="Center" Margin="15 8 15 8"></TextBox>
+            <TextBox Name="nums" PreviewTextInput="nums_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" FontSize="25" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Margin="15 8 15 8" Grid.Row="1"></TextBox>
+            <TextBox Name="price" PreviewTextInput="price_PreviewTextInput" InputMethod.IsInputMethodEnabled="False" FontSize="25" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Margin="15 8 15 8" Grid.Row="2"></TextBox>
+            <TextBox IsReadOnly="True" Name="id" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="25"  Margin="15 8 15 8" VerticalAlignment="Center"></TextBox>
+            <Button Name="btnAlter" Content="{DynamicResource Alter}" Grid.Row="4" Grid.ColumnSpan="3" Margin="70 10 70 10" Click="btnAlter_Click"></Button>
+            <Button Name="btnDelete" Content="{DynamicResource Delete}" Grid.Row="5" Grid.ColumnSpan="3" Margin="70 10 70 10" Click="btnDelete_Click" Background="#FFF76849"></Button>
+        </Grid>
+    </Grid>
+</Page>

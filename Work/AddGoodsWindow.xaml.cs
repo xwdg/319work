@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,31 +21,58 @@ namespace Work
     /// </summary>
     public partial class AddGoodsWindow : Window
     {
-        public AddGoodsWindow()
+        private string UserName { get; set; }
+
+        public AddGoodsWindow(string _pname)
         {
             InitializeComponent();
+
             btnQr.IsEnabled = false;
             name.Focus();
+            dgTable_Lod();
+
+            UserName = _pname;
+        }
+
+        public void dgTable_Lod()
+        {
+            try
+            {
+                Mysql mc = new Mysql();
+                mc.Open();
+                DataSet da = mc.Select($"select * from cskcgl");
+                mc.Close();
+
+                dgTable.ItemsSource = da.Tables[0].DefaultView;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void btnQr_Click(object sender, RoutedEventArgs e)
         { 
             try
             {
-                Mysql mc = new Mysql("gcxm", "gcxm", "gcxmgcxm", "39.106.61.96");
-                mc.Open();
-                mc.Execute($"insert into cskcgl values(null,'{name.Text}','{price.Text}','{nums.Text}')");
-                mc.Close();
-                if (MessageBox.Show("添加成功,是否继续？", "result", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    name.Clear();
-                    name.Focus();
-                    nums.Clear();
-                    price.Clear();
-                }
-                else
-                    Close();
+                Mysql mc = new Mysql();
 
+                mc.Open();
+                mc.Begin();
+                try
+                {
+                    mc.Execute($"insert into cskcgl values(null,'{name.Text}','{price.Text}','{nums.Text}')");
+                    mc.Execute($"insert into record values(null,'{UserName}','insert',now())");
+                    mc.Commit();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                    mc.Rollback();
+                }
+
+                mc.Close();
+                dgTable_Lod();
             }
             catch (Exception c)
             {
